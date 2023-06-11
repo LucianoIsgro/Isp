@@ -1,7 +1,8 @@
 class ClientsController < ApplicationController
 
 
-    before_action :set_client, only: [:show, :update, :destroy]
+    before_action :set_client, only: [:show, :update, :destroy, :plans]
+
     
     def index
         respond_to do |format|
@@ -53,6 +54,7 @@ class ClientsController < ApplicationController
     private
 
     def set_client
+       
         @client = Client.find(params[:id])
         
         return if @client.present?

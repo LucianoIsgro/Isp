@@ -14,6 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_211949) do
   create_table "clients", force: :cascade do |t|
     t.string "nombre"
     t.integer "dni"
+    t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,9 +36,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_211949) do
   end
 
   create_table "requests", force: :cascade do |t|
+    t.integer "estado", default: 0
+    t.integer "client_id"
+    t.integer "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_requests_on_client_id"
+    t.index ["plan_id"], name: "index_requests_on_plan_id"
   end
 
   add_foreign_key "plans", "internet_providers"
+  add_foreign_key "requests", "clients"
+  add_foreign_key "requests", "plans"
 end

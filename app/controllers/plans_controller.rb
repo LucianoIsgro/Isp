@@ -1,21 +1,26 @@
 
 class PlansController < ApplicationController
     before_action :set_isp, only:[:create, :update, :destroy]
+    
     before_action :set_plan, only: [:show, :update, :destroy]
 
-   def set_isp
-    
-    @provider = InternetProvider.find_by(token: request.headers["Authorization"].to_s) 
-    return if @provider.present?
 
-    respond_to do |format|
+
+    def set_isp
+      @provider = InternetProvider.find_by(token: request.headers["Authorization"].to_s) 
+      return if @provider.present?
+      respond_to do |format|
         format.json { render status: 401}
-    end     
-   end  
+      end     
+    end  
+
+    
+
+   
 
     def index
         respond_to do |format|
-            format.json { render status: 200, json: Plan.all }
+            format.json { render status: 200, json: Plan.all.order("internet_provider_id") } 
         end
     end
 

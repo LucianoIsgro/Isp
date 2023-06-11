@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  resources :clients
+  
   resources :internet_providers do
     collection do 
       resources :plans
@@ -12,8 +12,19 @@ Rails.application.routes.draw do
     end
   end
  
- 
-  resources :requests
+  resources :clients do
+    collection do
+     resources :requests do
+      collection do
+        get 'rejected'
+      end
+     end  
+
+     
+     
+     
+    end
+  end
   
 
 end

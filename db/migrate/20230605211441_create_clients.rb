@@ -3,6 +3,7 @@ class CreateClients < ActiveRecord::Migration[7.0]
     create_table :clients do |t|
       t.string :nombre
       t.integer :dni
+      t.string :token
       
       t.timestamps
     end
